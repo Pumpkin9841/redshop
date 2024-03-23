@@ -6,9 +6,9 @@
  * 版权所有，侵权必究！
  */
 
-package com.zongwu.redshop.xss;
+package com.zongwu.redshop.common.xss;
 
-import com.zongwu.redshop.exception.RRException;
+import com.zongwu.redshop.common.exception.RRException;
 import org.apache.commons.lang.StringUtils;
 
 /**

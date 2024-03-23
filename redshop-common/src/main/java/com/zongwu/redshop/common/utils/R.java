@@ -6,7 +6,7 @@
  * 版权所有，侵权必究！
  */
 
-package com.zongwu.redshop.utils;
+package com.zongwu.redshop.common.utils;
 
 import org.apache.http.HttpStatus;
 

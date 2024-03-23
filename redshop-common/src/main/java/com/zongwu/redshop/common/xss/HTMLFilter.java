@@ -1,4 +1,4 @@
-package com.zongwu.redshop.xss;
+package com.zongwu.redshop.common.xss;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
