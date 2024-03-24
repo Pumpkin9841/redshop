@@ -1,7 +1,11 @@
 package com.zongwu.redshop.product.service.impl;
 
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -24,6 +28,33 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public List<CategoryEntity> listWithTree() {
+
+        List<CategoryEntity> categoryEntityList = baseMapper.selectList(null);
+        List<CategoryEntity> entities = categoryEntityList.stream().filter(categoryEntity -> categoryEntity.getParentCid() == 0)
+                .map((rootCategory) -> {
+                    rootCategory.setChildren(getChildrens(rootCategory, categoryEntityList));
+                    return rootCategory;
+                }).sorted((category1, category2) -> {
+                    return (category1.getSort() == null ? 0 : category1.getSort()) - (category2.getSort() == null ? 0 : category2.getSort());
+                }).collect(Collectors.toList());
+
+        return entities;
+    }
+
+
+    private List<CategoryEntity> getChildrens(CategoryEntity rootCategory, List<CategoryEntity> categoryEntityList) {
+        List<CategoryEntity> children = categoryEntityList.stream().filter(categoryEntity -> categoryEntity.getParentCid().equals(rootCategory.getCatId()))
+                .map((categoryEntity) -> {
+                    categoryEntity.setChildren(getChildrens(categoryEntity, categoryEntityList));
+                    return categoryEntity;
+                }).sorted((category1, category2) -> {
+                    return (category1.getSort() == null ? 0 : category1.getSort()) - (category2.getSort() == null ? 0 : category2.getSort());
+                }).collect(Collectors.toList());
+        return children;
     }
 
 }

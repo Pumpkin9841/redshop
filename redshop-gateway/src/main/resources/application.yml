@@ -1,0 +1,14 @@
+server:
+  port: 88
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: test_baidu
+          uri: https://www.baidu.com
+          predicates:
+            - Query=url, baidu
+        - id: test_bilibili
+          uri: https://www.bilibili.com
+          predicates:
+            - Query=url, bili

@@ -1,7 +1,7 @@
 spring:
   datasource:
     password: root
-    url: jdbc:mysql://106.15.43.20:3306/gulimall_wms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://8.130.101.132:3306/gulimall_wms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
 mybatis-plus:
