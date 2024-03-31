@@ -1,7 +1,10 @@
 package com.zongwu.redshop.product.service.impl;
 
+import com.zongwu.redshop.product.entity.AttrGroupEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -49,6 +52,23 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     public void removeMenuByIds(List<Long> list) {
         //TODO 检测当前删除的菜单是否被别的地方引用
         baseMapper.deleteBatchIds(list);
+    }
+
+    @Override
+    public Long[] findCatelogPath(Long catelogId) {
+        ArrayList<Long> path = new ArrayList<>();
+        List<Long> parentPaath = findParentPath(catelogId, path);
+        Collections.reverse(parentPaath);
+        return parentPaath.toArray(new Long[parentPaath.size()]);
+    }
+
+    private List<Long> findParentPath(Long catelogId, ArrayList<Long> path) {
+        path.add(catelogId);
+        CategoryEntity byId = this.getById(catelogId);
+        if(byId.getParentCid() != 0) {
+            findParentPath(byId.getParentCid(), path);
+        }
+        return path;
     }
 
 

@@ -1,6 +1,6 @@
 spring:
   datasource:
-    password: root
+    password: Lx6024373..
     url: jdbc:mysql://8.130.101.132:3306/gulimall_pms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
